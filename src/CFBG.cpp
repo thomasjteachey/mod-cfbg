@@ -193,19 +193,83 @@ TeamId CFBG::SelectBgTeam(Battleground* bg, Player *player)
                     isHunterJoining = false;
                 }
 
-                // if who is joining (who can enter in the battle):
-                // 1 - has the level lower than the average players level of the joining-queue
-                // - OR -
-                // 2 - has the average item level lower than the average players itme level
-                //
-                // put him in the stronger team, so swap the team
-                if (
-                    (playerLevel < averagePlayersLevelQueue || // 1
-                    (playerLevel == averagePlayersLevelQueue && player->GetAverageItemLevel() < averagePlayersItemLevelQueue)) // 2
-                    && !balancedClass // check if the team has been balanced already by the class balance logic
-                )
+                if (!balancedClass)
                 {
-                    team = team == TEAM_ALLIANCE ? TEAM_HORDE : TEAM_ALLIANCE; // swap the team
+                    auto playerCountH = bg->GetPlayersCountByTeam(TEAM_HORDE);
+                    auto playerCountA = bg->GetPlayersCountByTeam(TEAM_ALLIANCE);
+                    // We need to have a diff of 0.5f
+                    // Range of calculation: [minBgLevel, maxBgLevel], i.e: [10,20)
+                    float avgLvlAlliance = playerLevelAlliance / (float)playerCountA;
+                    float avgLvlHorde = playerLevelHorde / (float)playerCountH;
+                    float avgLvlDiff = std::abs(avgLvlAlliance - avgLvlHorde);
+
+                    if (avgLvlDiff >= 0.5f)
+                    {
+                        float newAvgLvlAlliance = (playerLevelAlliance + player->getLevel()) / (float)(playerCountA + 1);
+                        float newAvgLvlHorde = (playerLevelHorde + player->getLevel()) / (float)(playerCountH + 1);
+                        // Check average for both teams
+                        if (avgLvlAlliance < avgLvlHorde)
+                        {
+                            if (newAvgLvlHorde < avgLvlHorde)
+                            {
+                                if (newAvgLvlAlliance < newAvgLvlHorde)
+                                {
+                                    // decide by queue average. Basically, if this player is one of the strongest (lvl), put him on the weaker team.
+                                    if (player->getLevel() >= averagePlayersLevelQueue)
+                                    {
+                                        team = TEAM_ALLIANCE;
+                                    }
+                                    else
+                                    {
+                                        team = TEAM_HORDE;
+                                    }
+                                }
+                                else // (newAvgLvlAlliance >= newAvgLvlHorde)
+                                {
+                                    team = TEAM_ALLIANCE;
+                                }
+                            }
+                            else // (newAvgLvlHorde >= avgLvlHorde)
+                            {
+                                team = TEAM_ALLIANCE;
+                            }
+                        }
+                        else // (avgLvlAlliance >= avgLvlHorde)
+                        {
+                            if (newAvgLvlAlliance < avgLvlAlliance)
+                            {
+                                if (newAvgLvlHorde < newAvgLvlAlliance)
+                                {
+                                    // decide by queue average.
+                                    if (player->getLevel() >= averagePlayersLevelQueue)
+                                    {
+                                        team = TEAM_HORDE;
+                                    }
+                                    else
+                                    {
+                                        team = TEAM_ALLIANCE;
+                                    }
+                                }
+                                else // (newAvgLvlHorde >= newAvgLvlAlliance)
+                                {
+                                    team = TEAM_HORDE;
+                                }
+                            }
+                            else // (newAvgLvlAlliance >= avgLvlAlliance)
+                            {
+                                team = TEAM_HORDE;
+                            }
+                        }
+                    }
+                    else // it's balanced, so we should only check the ilvl
+                    {
+                        team = GetLowerAvgIlvlTeamInBg(bg);
+                        if (player->GetAverageItemLevel() < averagePlayersItemLevelQueue) // weak player, put it on the stronger ilvl team
+                        {
+                            team = team == TEAM_ALLIANCE ? TEAM_HORDE : TEAM_ALLIANCE;
+                        }
+                        // no else, if the player has more ilvl than the queue, put him on the weaker team.
+                    }
                 }
             }
         }
