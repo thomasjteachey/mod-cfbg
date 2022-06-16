@@ -90,17 +90,17 @@ struct RaceData
 RaceData const raceData[12] =
 {
     { CLASS_NONE, { 0 }, { 0 } },
-    { CLASS_WARRIOR,      { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_NIGHTELF, RACE_DRAENEI  }, { RACE_ORC, RACE_TAUREN, RACE_TROLL } },
+    { CLASS_WARRIOR,      { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_DRAENEI  }, { RACE_ORC, RACE_TAUREN, RACE_TROLL } },
     { CLASS_PALADIN,      { RACE_HUMAN, RACE_DWARF, RACE_DRAENEI },                             { RACE_BLOODELF } },
-    { CLASS_HUNTER,       { RACE_DWARF, RACE_NIGHTELF, RACE_DRAENEI },                          { RACE_ORC, RACE_TAUREN, RACE_TROLL, RACE_BLOODELF } },
-    { CLASS_ROGUE,        { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_NIGHTELF },                { RACE_ORC, RACE_TROLL, RACE_BLOODELF, RACE_UNDEAD_PLAYER } },
-    { CLASS_PRIEST,       { RACE_HUMAN, RACE_DWARF, RACE_NIGHTELF, RACE_DRAENEI  },             { RACE_TROLL, RACE_BLOODELF, RACE_UNDEAD_PLAYER } },
-    { CLASS_DEATH_KNIGHT, { RACE_HUMAN, RACE_DWARF, RACE_GNOME,  RACE_NIGHTELF, RACE_DRAENEI }, { RACE_ORC, RACE_TAUREN, RACE_TROLL, RACE_BLOODELF, RACE_UNDEAD_PLAYER } },
+    { CLASS_HUNTER,       { RACE_DWARF, RACE_DRAENEI },                          { RACE_ORC, RACE_TAUREN, RACE_TROLL, RACE_BLOODELF } },
+    { CLASS_ROGUE,        { RACE_HUMAN, RACE_DWARF, RACE_GNOME },                { RACE_ORC, RACE_TROLL, RACE_BLOODELF } },
+    { CLASS_PRIEST,       { RACE_HUMAN, RACE_DWARF, RACE_DRAENEI  },             { RACE_TROLL, RACE_BLOODELF } },
+    { CLASS_DEATH_KNIGHT, { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_DRAENEI }, { RACE_ORC, RACE_TAUREN, RACE_TROLL, RACE_BLOODELF } },
     { CLASS_SHAMAN,       { RACE_DRAENEI },                                                     { RACE_ORC, RACE_TAUREN, RACE_TROLL  } },
     { CLASS_MAGE,         { RACE_HUMAN, RACE_GNOME },                                           { RACE_BLOODELF, RACE_TROLL } },
     { CLASS_WARLOCK,      { RACE_HUMAN, RACE_GNOME },                                           { RACE_ORC, RACE_BLOODELF } },
     { CLASS_NONE, { 0 }, { 0 } },
-    { CLASS_DRUID,        { RACE_NIGHTELF },                                                    { RACE_TAUREN } },
+    { CLASS_DRUID,        { RACE_HUMAN },                                                    { RACE_TAUREN } },
 };
 
 struct CFBGRaceInfo

@@ -297,7 +297,6 @@ void CFBG::RandomRaceMorph(uint8* race, uint32* morph, TeamId team, uint8 _class
     // if alliance find a horde race
     if (team == TEAM_ALLIANCE)
     {
-        // default race because UNDEAD morph is missing
         *race = Acore::Containers::SelectRandomContainerElement(raceData[_class].availableRacesH);
     }
     else // otherwise find an alliance race
