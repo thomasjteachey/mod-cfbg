@@ -140,17 +140,17 @@ CFBG::CFBG()
     _raceData =
     {
         RaceData{ CLASS_NONE,           { 0 }, { 0 } },
-        RaceData{ CLASS_WARRIOR,        { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_DRAENEI  }, { RACE_ORC, RACE_TAUREN, RACE_TROLL } },
+        RaceData{ CLASS_WARRIOR,        { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_DRAENEI  }, { RACE_BLOODELF } },
         RaceData{ CLASS_PALADIN,        { RACE_HUMAN, RACE_DWARF, RACE_DRAENEI }, { RACE_BLOODELF } },
-        RaceData{ CLASS_HUNTER,         { RACE_DWARF, RACE_DRAENEI }, { RACE_ORC, RACE_TAUREN, RACE_TROLL, RACE_BLOODELF } },
-        RaceData{ CLASS_ROGUE,          { RACE_HUMAN, RACE_DWARF, RACE_GNOME }, { RACE_ORC, RACE_TROLL, RACE_BLOODELF } },
-        RaceData{ CLASS_PRIEST,         { RACE_HUMAN, RACE_DWARF, RACE_DRAENEI  }, { RACE_TROLL, RACE_BLOODELF } },
-        RaceData{ CLASS_DEATH_KNIGHT,   { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_DRAENEI }, { RACE_ORC, RACE_TAUREN, RACE_TROLL, RACE_BLOODELF } },
-        RaceData{ CLASS_SHAMAN,         { RACE_DRAENEI }, { RACE_ORC, RACE_TAUREN, RACE_TROLL  } },
-        RaceData{ CLASS_MAGE,           { RACE_HUMAN, RACE_GNOME }, { RACE_BLOODELF, RACE_TROLL } },
-        RaceData{ CLASS_WARLOCK,        { RACE_HUMAN, RACE_GNOME }, { RACE_ORC, RACE_BLOODELF } },
+        RaceData{ CLASS_HUNTER,         { RACE_DWARF, RACE_DRAENEI }, { RACE_BLOODELF } },
+        RaceData{ CLASS_ROGUE,          { RACE_HUMAN, RACE_DWARF, RACE_GNOME }, { RACE_BLOODELF } },
+        RaceData{ CLASS_PRIEST,         { RACE_HUMAN, RACE_DWARF, RACE_DRAENEI  }, { RACE_BLOODELF } },
+        RaceData{ CLASS_DEATH_KNIGHT,   { RACE_HUMAN, RACE_DWARF, RACE_GNOME, RACE_DRAENEI }, { RACE_BLOODELF } },
+        RaceData{ CLASS_SHAMAN,         { RACE_DRAENEI }, { RACE_BLOODELF  } },
+        RaceData{ CLASS_MAGE,           { RACE_HUMAN, RACE_GNOME }, { RACE_BLOODELF } },
+        RaceData{ CLASS_WARLOCK,        { RACE_HUMAN, RACE_GNOME }, { RACE_BLOODELF } },
         RaceData{ CLASS_NONE,           { 0 }, { 0 } },
-        RaceData{ CLASS_DRUID,          { RACE_HUMAN }, { RACE_TAUREN } }
+        RaceData{ CLASS_DRUID,          { RACE_HUMAN }, { RACE_BLOODELF } }
     };
 
     _raceInfo =
@@ -160,10 +160,10 @@ CFBG::CFBG()
         CFBGRaceInfo{ RACE_DWARF,    "dwarf",    TEAM_HORDE    },
         CFBGRaceInfo{ RACE_GNOME,    "gnome",    TEAM_HORDE    },
         CFBGRaceInfo{ RACE_DRAENEI,  "draenei",  TEAM_HORDE    },
-        CFBGRaceInfo{ RACE_ORC,      "orc",      TEAM_ALLIANCE },
+        CFBGRaceInfo{ RACE_ORC,      "orc",      TEAM_HORDE },
         CFBGRaceInfo{ RACE_BLOODELF, "bloodelf", TEAM_ALLIANCE },
-        CFBGRaceInfo{ RACE_TROLL,    "troll",    TEAM_ALLIANCE },
-        CFBGRaceInfo{ RACE_TAUREN,   "tauren",   TEAM_ALLIANCE }
+        CFBGRaceInfo{ RACE_TROLL,    "troll",    TEAM_HORDE },
+        CFBGRaceInfo{ RACE_TAUREN,   "tauren",   TEAM_HORDE }
     };
 }
 
@@ -457,10 +457,10 @@ void CFBG::SetFakeRaceAndMorph(Player* player)
         player->GetTeamId(true)
     };
 
-    player->setRace(fakePlayerInfo.FakeRace);
+    //player->setRace(fakePlayerInfo.FakeRace);
     SetFactionForRace(player, fakePlayerInfo.FakeRace);
-    player->SetDisplayId(fakePlayerInfo.FakeMorph);
-    player->SetNativeDisplayId(fakePlayerInfo.FakeMorph);
+    //player->SetDisplayId(fakePlayerInfo.FakeMorph);
+    //player->SetNativeDisplayId(fakePlayerInfo.FakeMorph);
 
     _fakePlayerStore.emplace(player, std::move(fakePlayerInfo));
 }
